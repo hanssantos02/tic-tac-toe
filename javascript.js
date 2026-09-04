@@ -1,65 +1,16 @@
-function playGame() {
-    let board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
-    let currentPlayer = 'X';
+const gameState = {
+    board: ['', '', '', '', '', '', '', '', ''],
+    currentPlayer: 'X',
+    isGameActive: true
+};
+const statusMessage = document.querySelector('.status-message');
+const boardGrid = document.querySelector('.board');
+const resetBtn = document.querySelector('.btn-reset');
+const cells = document.querySelectorAll('.cell');
 
-    printBoard(board);
-
-    while (true) {
-        const answer = prompt(`Player ${currentPlayer}, enter a cell (0-8): `);
-
-        if (answer === null) {
-            console.log("Game Cancelled.");
-            break;
-        }
-
-        const index = parseInt(answer, 10);
-
-        if (isNaN(index)) {
-            console.log("Please Enter a Number.");
-            continue;
-        }
-
-        const moved = makeMove(board, index, currentPlayer);
-        if (!moved) continue;
-
-        printBoard(board);
-
-        const winner = checkWinner(board);
-        if (winner) {
-            console.log(`Player ${winner} wins!`);
-            break;
-        }
-
-        if (isBoardFull(board)) {
-            console.log("It's a Tie!");
-            break;
-        }
-
-        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-    }
-}
-
-playGame();
-
-
-
-function printBoard(board) {
-  console.log(`
- ${board[0]} | ${board[1]} | ${board[2]}
------------
- ${board[3]} | ${board[4]} | ${board[5]}
------------
- ${board[6]} | ${board[7]} | ${board[8]}
-`);
-}
 
 function makeMove(board, index, player) {
-    if (index < 0 || index > 8) {
-        console.log("Invalid Move: Out of Range");
-        return false;
-    }
-    if (board[index] !== ' ') {
-        console.log("Invalid Move: Cell already taken");
+    if (index < 0 || index > 8 || board[index] !== '') {
         return false;
     }
     board[index] = player;
@@ -82,4 +33,22 @@ function checkWinner(board) {
 
 function isBoardFull(board) {
     return board.every(cell => cell !== ' ');
+}
+
+function render() {
+    cells.forEach((cell, index) => {
+        const cellValue = gameState.board[index];
+        cell.textContent = cellValue;
+
+        cell.disabled = cellValue !== '' || !gameState.isGameActive;
+
+        cell.classList.remove('x', 'o');
+        if (cellValue !== '') {
+            cell.classList.add(cellValue.toLowerCase());
+        }
+    });
+
+    if (gameState.isGameActive) {
+        statusMessage.textContent = `Player ${gameState.currentPlayer}'s Turn`;
+    }
 }
