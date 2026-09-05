@@ -32,7 +32,7 @@ function checkWinner(board) {
 }
 
 function isBoardFull(board) {
-    return board.every(cell => cell !== ' ');
+    return board.every(cell => cell !== '');
 }
 
 function render() {
@@ -48,7 +48,42 @@ function render() {
         }
     });
 
-    if (gameState.isGameActive) {
+    const winner = checkWinner(gameState.board);
+    const tie = isBoardFull(gameState.board);
+
+    if (winner) {
+        statusMessage.textContent = `Player ${winner} wins!`;
+    }
+    else if (tie) {
+        statusMessage.textContent = "It's a tie!";
+    }
+    else {
         statusMessage.textContent = `Player ${gameState.currentPlayer}'s Turn`;
     }
 }
+
+
+boardGrid.addEventListener('click', (event) => {
+    const button = event.target.closest('button');
+
+    if (gameState.isGameActive && button && button.hasAttribute('data-cell-index')) {
+        const cellIndex = parseInt(button.dataset.cellIndex);
+
+        const success = makeMove(gameState.board, cellIndex, gameState.currentPlayer);
+        if (!success) {
+            return;
+        }
+
+        const winner = checkWinner(gameState.board);
+        const tie = isBoardFull(gameState.board);
+        if (winner || tie) {
+            gameState.isGameActive = false;
+        }
+        else {
+            gameState.currentPlayer = gameState.currentPlayer === 'X' ? 'O' : 'X';
+        }
+        
+        render();
+    }
+
+});
