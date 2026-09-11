@@ -87,3 +87,13 @@ boardGrid.addEventListener('click', (event) => {
     }
 
 });
+
+function resetGame() {
+    gameState.board = ['', '', '', '', '', '', '', '', ''];
+    gameState.currentPlayer = 'X';
+    gameState.isGameActive = true;
+
+    render();
+}
+
+resetBtn.addEventListener('click', resetGame);
