@@ -85,7 +85,7 @@ Using explicit CSS Grid tracks with `minmax(0, 1fr)` and `aspect-ratio: 1 / 1`, 
 ---
 
 
-## 🚀 Getting Started
+## Getting Started
 
 
 ### Prerequisites
@@ -120,7 +120,7 @@ No dependencies or package managers required. Runs natively in any modern web br
 ---
 
 
-## 🕹️ How to Play
+## How to Play
 
 
 1. Enter custom names for **Player X** and **Player O** in the setup inputs (defaults to "Player X" and "Player O" if left blank).
@@ -134,7 +134,7 @@ No dependencies or package managers required. Runs natively in any modern web br
 ---
 
 
-## 🔮 Strategic Roadmap
+## Strategic Roadmap
 
 
 - [ ] **Move History & Time Travel:** Introduce an undo/redo stack leveraging the idempotent render pipeline.
