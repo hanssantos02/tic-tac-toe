@@ -1,13 +1,23 @@
 const gameState = {
     board: ['', '', '', '', '', '', '', '', ''],
     currentPlayer: 'X',
-    isGameActive: true
+    isGameActive: false,
+    hasStarted: false,
+    players: {
+        X: 'Player X',
+        O: 'Player O'
+    }
 };
 const statusMessage = document.querySelector('.status-message');
 const boardGrid = document.querySelector('.board');
 const resetBtn = document.querySelector('.btn-reset');
 const cells = document.querySelectorAll('.cell');
-
+const playerXInput = document.querySelector('#player-x');
+const playerOInput = document.querySelector('#player-o');
+const primaryActionBtn = document.querySelector('#primary-action-btn');
+const resultOverlay = document.querySelector('#result-overlay');
+const resultBody = document.querySelector('#result-body');
+const playAgainBtn = document.querySelector('#play-again-btn');
 
 function makeMove(board, index, player) {
     if (index < 0 || index > 8 || board[index] !== '') {
@@ -36,6 +46,9 @@ function isBoardFull(board) {
 }
 
 function render() {
+    resultOverlay.classList.add('hidden');
+    playerXInput.disabled = gameState.isGameActive;
+    playerOInput.disabled = gameState.isGameActive;
     cells.forEach((cell, index) => {
         const cellValue = gameState.board[index];
         cell.textContent = cellValue;
@@ -51,14 +64,23 @@ function render() {
     const winner = checkWinner(gameState.board);
     const tie = isBoardFull(gameState.board);
 
-    if (winner) {
-        statusMessage.textContent = `Player ${winner} wins!`;
+    primaryActionBtn.textContent = gameState.hasStarted ? 'Restart Game' : 'Start Game';
+
+    if (!gameState.hasStarted) {
+        statusMessage.textContent = 'Enter names and click Start';
+    } 
+    else if (winner) {
+        resultBody.textContent = `${gameState.players[winner]} Wins!`;
+        resultOverlay.classList.remove('hidden');
+        statusMessage.textContent = 'Game Over';
     }
     else if (tie) {
-        statusMessage.textContent = "It's a tie!";
+        resultBody.textContent = "It's a Tie";
+        resultOverlay.classList.remove('hidden');
+        statusMessage.textContent = 'Game Over';
     }
     else {
-        statusMessage.textContent = `Player ${gameState.currentPlayer}'s Turn`;
+        statusMessage.textContent = `${gameState.players[gameState.currentPlayer]}'s Turn (${gameState.currentPlayer});`
     }
 }
 
@@ -88,12 +110,21 @@ boardGrid.addEventListener('click', (event) => {
 
 });
 
-function resetGame() {
+
+
+function startOrRestartGame() {
+    gameState.players.X = playerXInput.value.trim() || 'Player X';
+    gameState.players.O = playerOInput.value.trim() || 'Plyaer O';
+
     gameState.board = ['', '', '', '', '', '', '', '', ''];
     gameState.currentPlayer = 'X';
     gameState.isGameActive = true;
+    gameState.hasStarted = true;
 
     render();
 }
 
-resetBtn.addEventListener('click', resetGame);
+primaryActionBtn.addEventListener('click', startOrRestartGame);
+playAgainBtn.addEventListener('click', startOrRestartGame);
+
+render();

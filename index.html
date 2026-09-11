@@ -5,16 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tic Tac Toe</title>
   <link rel="stylesheet" href="style.css">
-  <script src="javascript.js" defer></script>
 </head>
 <body>
   <main class="game-container">
     <header class="game-header">
       <h1>Tic Tac Toe</h1>
-      <div id="status-message" class="status-message" aria-live="polite">
-        Player X's Turn
-      </div>
     </header>
+
+
+    <section class="player-setup" aria-label="Player Setup">
+      <div class="input-group">
+        <label for="player-x">Player X</label>
+        <input type="text" id="player-x" placeholder="Player X" maxlength="12" value="Player X">
+      </div>
+      <div class="input-group">
+        <label for="player-o">Player O</label>
+        <input type="text" id="player-o" placeholder="Player O" maxlength="12" value="Player O">
+      </div>
+    </section>
+
+
+    <div class="controls">
+      <button id="primary-action-btn" class="btn-primary">Start Game</button>
+    </div>
+
+
+    <div id="status-message" class="status-message" aria-live="polite">
+      Enter names and click Start
+    </div>
+
 
     <div class="board" id="board" role="grid" aria-label="Tic Tac Toe Board">
       <button class="cell" data-cell-index="0" aria-label="Cell 1"></button>
@@ -28,10 +47,17 @@
       <button class="cell" data-cell-index="8" aria-label="Cell 9"></button>
     </div>
 
-    <footer class="game-footer">
-      <button id="reset-button" class="btn-reset">Restart Game</button>
-    </footer>
+
+    <div id="result-overlay" class="result-overlay hidden" aria-modal="true" role="dialog">
+      <div class="result-card">
+        <h2 id="result-title">Game Over</h2>
+        <p id="result-body">Player X Wins!</p>
+        <button id="play-again-btn" class="btn-primary">Play Again</button>
+      </div>
+    </div>
   </main>
 
+
+  <script src="javascript.js"></script>
 </body>
 </html>
