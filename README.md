@@ -71,7 +71,7 @@ Using explicit CSS Grid tracks with `minmax(0, 1fr)` and `aspect-ratio: 1 / 1`, 
 ---
 
 
-## 📂 Project Structure
+## Project Structure
 
 
 ```text
