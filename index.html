@@ -3,52 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tic Tac Toe</title>
+  <meta name="description" content="Tic Tac Toe — a lamp-lit game for two. Three in a row takes it.">
+  <title>Tic Tac Toe — a lamp-lit game for two</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="game-container">
-    <header class="game-header">
+  <main class="table">
+    <header class="masthead">
       <h1>Tic Tac Toe</h1>
+      <p class="table-rule">X opens &middot; three in a row takes it</p>
     </header>
 
-
-    <section class="player-setup" aria-label="Player Setup">
-      <div class="input-group">
-        <label for="player-x">Player X</label>
-        <input type="text" id="player-x" placeholder="Player X" maxlength="12" value="Player X">
+    <section class="ledger" aria-label="Player Setup">
+      <div class="ledger-entry" id="card-x">
+        <span class="ledger-mark" aria-hidden="true">X</span>
+        <div class="ledger-fields">
+          <label for="player-x">First player</label>
+          <input type="text" id="player-x" placeholder="e.g. June" maxlength="12" value="Player X" autocomplete="off" spellcheck="false">
+        </div>
       </div>
-      <div class="input-group">
-        <label for="player-o">Player O</label>
-        <input type="text" id="player-o" placeholder="Player O" maxlength="12" value="Player O">
+      <span class="ledger-divider" aria-hidden="true"></span>
+      <div class="ledger-entry" id="card-o">
+        <span class="ledger-mark" aria-hidden="true">O</span>
+        <div class="ledger-fields">
+          <label for="player-o">Second player</label>
+          <input type="text" id="player-o" placeholder="e.g. Theo" maxlength="12" value="Player O" autocomplete="off" spellcheck="false">
+        </div>
       </div>
     </section>
 
-
-    <div class="controls">
-      <button id="primary-action-btn" class="btn-primary">Start Game</button>
-    </div>
-
-
-    <div id="status-message" class="status-message" aria-live="polite">
-      Enter names and click Start
-    </div>
-
-
     <div class="board" id="board" role="grid" aria-label="Tic Tac Toe Board">
-      <button class="cell" data-cell-index="0" aria-label="Cell 1"></button>
-      <button class="cell" data-cell-index="1" aria-label="Cell 2"></button>
-      <button class="cell" data-cell-index="2" aria-label="Cell 3"></button>
-      <button class="cell" data-cell-index="3" aria-label="Cell 4"></button>
-      <button class="cell" data-cell-index="4" aria-label="Cell 5"></button>
-      <button class="cell" data-cell-index="5" aria-label="Cell 6"></button>
-      <button class="cell" data-cell-index="6" aria-label="Cell 7"></button>
-      <button class="cell" data-cell-index="7" aria-label="Cell 8"></button>
-      <button class="cell" data-cell-index="8" aria-label="Cell 9"></button>
+      <button class="cell" data-cell-index="0" role="gridcell" aria-label="Cell 1, empty"></button>
+      <button class="cell" data-cell-index="1" role="gridcell" aria-label="Cell 2, empty"></button>
+      <button class="cell" data-cell-index="2" role="gridcell" aria-label="Cell 3, empty"></button>
+      <button class="cell" data-cell-index="3" role="gridcell" aria-label="Cell 4, empty"></button>
+      <button class="cell" data-cell-index="4" role="gridcell" aria-label="Cell 5, empty"></button>
+      <button class="cell" data-cell-index="5" role="gridcell" aria-label="Cell 6, empty"></button>
+      <button class="cell" data-cell-index="6" role="gridcell" aria-label="Cell 7, empty"></button>
+      <button class="cell" data-cell-index="7" role="gridcell" aria-label="Cell 8, empty"></button>
+      <button class="cell" data-cell-index="8" role="gridcell" aria-label="Cell 9, empty"></button>
     </div>
 
+    <div class="foot-row">
+      <p id="status-message" class="status-line" aria-live="polite" data-turn="idle">Enter names and press Start.</p>
+      <div class="controls">
+        <button id="primary-action-btn" class="btn-primary">Start Game</button>
+      </div>
+    </div>
 
-    <div id="result-overlay" class="result-overlay hidden" aria-modal="true" role="dialog">
+    <div id="result-overlay" class="result-overlay hidden" aria-modal="true" role="dialog" aria-labelledby="result-title">
       <div class="result-card">
         <h2 id="result-title">Game Over</h2>
         <p id="result-body">Player X Wins!</p>
@@ -56,7 +59,6 @@
       </div>
     </div>
   </main>
-
 
   <script src="javascript.js"></script>
 </body>
